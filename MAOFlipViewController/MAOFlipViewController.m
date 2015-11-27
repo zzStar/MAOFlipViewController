@@ -46,14 +46,31 @@
 {
     UIViewController *c = [self nextViewController];
     if (!c) {
+        UIAlertView *alert1 = [[UIAlertView alloc]initWithTitle:nil message:@"没有更多了" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+        [alert1 show];
+        [self performSelector:@selector(dismiss:) withObject:alert1 afterDelay:1.0];
         return;
     }
     [self.flipInteraction setView:c.view];//インタラクション対象viewの設定。遷移先のview
     [self.flipNavigationController pushViewController:c animated:YES];
 }
+
+-(void)dismiss:(UIAlertView*)alert
+{
+    [alert dismissWithClickedButtonIndex:0 animated:YES];
+}
+
+
 - (void)interactionPopBeganAtPoint:(CGPoint)point
 {
+    if (self.flipNavigationController.viewControllers.count == 1) {
+        UIAlertView *alert1 = [[UIAlertView alloc]initWithTitle:nil message:@"这是第1页" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+        [alert1 show];
+        [self performSelector:@selector(dismiss:) withObject:alert1 afterDelay:1.0];
+        
+    }
     [self.flipNavigationController popViewControllerAnimated:YES];
+    
 }
 
 - (UIViewController*)nextViewController
@@ -67,6 +84,7 @@
     }
     
     UIViewController *c = [self.delegate flipViewController:self contentIndex:(targetIndex)];
+    c.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     return c;
 }
 

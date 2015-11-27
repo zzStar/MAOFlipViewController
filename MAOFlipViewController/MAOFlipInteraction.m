@@ -85,22 +85,24 @@
             CGPoint nowPoint = [gesture locationInView:self.view];
             CGFloat boundary = (self.view.frame.origin.y + (self.view.frame.size.height / 2));
             if (self.isPushMode){//下から上にスワイプして進むモード
-                if (boundary > nowPoint.y) {//現在の指の位置が上半分
-                    [self finishInteractiveTransition];
-                } else {
-                    // 下方向に動かしていたらキャンセルとみなす
-                    [self cancelInteractiveTransition];
-                }
+                [self finishInteractiveTransition];
+//                if (boundary > nowPoint.y) {//現在の指の位置が上半分
+//                    [self finishInteractiveTransition];
+//                } else {
+//                    // 下方向に動かしていたらキャンセルとみなす
+//                    [self cancelInteractiveTransition];
+//                }
             } else {//上から下にスワイプして戻るモード
-                if (boundary < nowPoint.y) {//現在の指の位置が上半分
-                    [self finishInteractiveTransition];
-                    
-                    //呼び出し元にへ通知
-                    [self.delegate completePopInteraction];
-                }else{
-                    // 上方向に動かしていたらキャンセルとみなす
-                    [self cancelInteractiveTransition];
-                }
+                   [self finishInteractiveTransition];
+//                if (boundary < nowPoint.y) {//現在の指の位置が上半分
+//                    [self finishInteractiveTransition];
+//                    
+//                    //呼び出し元にへ通知
+//                    [self.delegate completePopInteraction];
+//                }else{
+//                    // 上方向に動かしていたらキャンセルとみなす
+//                    [self cancelInteractiveTransition];
+//                }
             }
             break;
         }
